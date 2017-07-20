@@ -1,0 +1,16 @@
+id: c5dff023-86e0-425c-84de-993be425c757
+name: nginx-plus-apb
+image: nginxinc/nginx-plus-apb
+description: This is a simple NGINX Plus instance
+bindable: False
+async: optional
+metadata:
+  documentationUrl: https://www.nginx.com/resources/admin-guide/
+  imageUrl: https://avatars2.githubusercontent.com/u/8629072?v=4&s=200
+  dependencies: ['/bin/sh: /bin/grep: No such file or directory']
+  displayName: NGINX Plus
+  longDescription: An APB that deploys an instance of NGINX Plus
+
+parameters: []
+
+required: []
