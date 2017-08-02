@@ -10,7 +10,7 @@ To test this APB you will first need to setup an OpenShift Origin environment wi
 
 You will also need to install the [APB application](https://github.com/fusor/ansible-playbook-bundle).
 
-Finally, you will need to create your own Docker image for NGINX Plus and tag it as `nginx-plus`. Instructions on how to do this can be found [here](https://www.nginx.com/blog/deploying-nginx-nginx-plus-docker/).
+Finally, you will need to build an OpenShift NGINX Plus image. A Dockerfile to build the image can be found in the `dev` folder.
 
 ## How to Use
 
