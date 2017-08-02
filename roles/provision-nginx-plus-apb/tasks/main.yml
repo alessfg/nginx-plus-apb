@@ -29,7 +29,7 @@
       service: nginx-plus-apb
     containers:
     - env:
-      image: nginx-plus # replace with your application image
+      image: '{{ nginx-plus-image }}' # replace with your application image
       imagePullPolicy: IfNotPresent
       name: nginx-plus-apb
       ports:
