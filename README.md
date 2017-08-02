@@ -17,14 +17,16 @@ Finally, you will need to create your own Docker image for NGINX Plus and tag it
 1. Login to your `oc` cluster via the command that [catasb](https://github.com/fusor/catasb) will output at the end of the installation process.
 2. Clone this repository.
 3. Navigate to the repository and run `apb build`.
-4. Run `apb push -k`.
+4. Run `apb push`.
 5. Open your browser at https://192.168.37.1:8443. You'll be greeted by the OpenShift service catalog.
 6. Select the NGINX service, add it to `My Project`, select `Create` and click `View Project`.
 7. After waiting for a few seconds you should see a URL pop in the top-right corner of the console. That URL will take you to the default NGINX landing page. Alternatively you can select `Applications/Pods` via the left-side navbar and select the NGINX pod. From here you'll be able to use a terminal to manipulate NGINX.
 
 ## Parameters
 
-None
+Name | Default Value | Required | Description
+---|---|---|---
+nginx_plus_image | openshift-nginx-plus | Yes | Name of NGINX Plus Docker image
 
 ## License
 
