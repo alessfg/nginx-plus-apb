@@ -20,3 +20,4 @@ plans:
         default: openshift-nginx-plus
         type: string
         title: Name of NGINX Plus Docker image
+        required: True
