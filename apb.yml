@@ -16,7 +16,7 @@ plans:
     free: True
     metadata: {}
     parameters:
-      - name: nginx-plus-image
+      - name: nginx_plus_image
         default: openshift-nginx-plus
         type: string
         title: Name of NGINX Plus Docker image
