@@ -30,10 +30,10 @@ nginx_plus_image | openshift-nginx-plus | Yes | Name of NGINX Plus Docker image
 
 ## License
 
-Simplified BSD License
+[Simplified BSD License](https://github.com/nginxinc/nginx-plus-apb/blob/master/LICENSE)
 
 ## Author
 
 Alessandro Fael Garcia
 
-**NGINX Inc**
+[NGINX Inc](https://www.nginx.com/)
