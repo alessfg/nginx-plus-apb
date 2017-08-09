@@ -2,15 +2,15 @@
 
 An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Plus.
 
-**Please Note**: This is still a WIP
+**Please Note**: This is still a WIP. Any upstream changes might break the APB without previous warning.
 
 ## Setup
 
-To test this APB you will first need to setup an OpenShift Origin environment with a Service Catalog and Ansible Service Broker. [Catasb](https://github.com/fusor/catasb) is a nice tool that will allow you to easily create an OpenShift cluster on your local machine and install all the required dependencies.
+To test this APB you will first need to setup an OpenShift Origin environment with a Service Catalog and Ansible Service Broker. [Catasb](https://github.com/fusor/catasb) is a nice tool that will allow you to easily create an OpenShift Docker cluster on your local machine and install all the required dependencies.
 
 You will also need to install the [APB application](https://github.com/fusor/ansible-playbook-bundle).
 
-Finally, you will need to build an OpenShift NGINX Plus image. A Dockerfile to build the image can be found in the `dev` folder.
+Finally, you will need to build an OpenShift NGINX Plus image. A Dockerfile to build the image can be found in the `dev` folder. You will need to copy your certs into the `certs` folder for the Docker image to work.
 
 ## How to Use
 
