@@ -33,7 +33,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Change pid file location & remove nginx user & change port to 8080
     sed -i 's/\/var\/run\/nginx.pid/\/var\/cache\/nginx\/nginx.pid/g' /etc/nginx/nginx.conf && \
     sed -i -e '/user/!b' -e '/nginx/!b' -e '/nginx/d' /etc/nginx/nginx.conf && \
-    sed -i -e '/listen/!b' -e '/80;/!b' -e 's/80;/8080;/' /etc/nginx/conf.d/default.conf && \
+    sed -i -e '/listen/!b' -e '/80 default_server;/!b' -e 's/80 default_server;/8080 default_server;/' /etc/nginx/conf.d/default.conf && \
 # Modify perms for non-root runtime
     chown -R 998 /var/cache/nginx /etc/nginx && \
     chmod -R g=u /var/cache/nginx /etc/nginx
