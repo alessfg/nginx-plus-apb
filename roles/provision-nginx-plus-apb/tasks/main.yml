@@ -1,5 +1,5 @@
 ##############################################################################
-## Provision nginx-plus-apb
+## Provision NGINX Plus APB
 ## This role executes much of the needed functionality to provision an
 ## application using an Ansible Playbook Bundle.  Included in the comments
 ## below are some sample resources for getting started deploying an application
@@ -12,7 +12,7 @@
 ## one deployment of an image to a new one.
 ## https://docs.openshift.org/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations
 ##############################################################################
-- name: create nginx-plus-apb deployment config
+- name: Create NGINX Plus APB deployment config
   openshift_v1_deployment_config:
     name: nginx-plus-apb
     namespace: '{{ namespace }}'
@@ -28,22 +28,30 @@
       app: '{{ namespace }}'
       service: nginx-plus-apb
     containers:
-    - env:
-      image: '{{ nginx_plus_image }}' # replace with your application image
+    - image: '{{ nginx_plus_image }}' # replace with your application image
       imagePullPolicy: IfNotPresent
       name: nginx-plus-apb
       ports:
       - container_port: 80
         protocol: TCP
+      volumeMounts:
+        - mountPath: /etc/nginx/conf.d
+          name: configuration
     restart_policy: Always
-
+    volumes:
+      - name: configuration
+        configMap:
+          name: nginx-conf
+          items:
+            - key: nginx-conf
+              path: default.conf
 
 ##############################################################################
 ## A Kubernetes service serves as an internal load balancer.  It identifies a
 ## set of replicated pods in order to proxy the connections it receives to them.
 ## https://docs.openshift.org/latest/architecture/core_concepts/pods_and_services.html#services
 ##############################################################################
-- name: create nginx-plus-apb service
+- name: Create NGINX Plus APB service
   k8s_v1_service:
     name: nginx-plus-apb
     namespace: '{{ namespace }}'
@@ -54,7 +62,9 @@
       - name: web
         port: 80
         target_port: 8080
-
+      - name: status
+        port: 81
+        target_port: 8081
 
 ##############################################################################
 ## An OpenShift Origin route exposes a service at a host name, so that external
@@ -62,12 +72,40 @@
 ## selector, and an optional security configuration.
 ## https://docs.openshift.org/latest/architecture/core_concepts/routes.html
 ##############################################################################
-- name: create nginx-plus-apb route
+- name: Create NGINX Plus APB web route
   openshift_v1_route:
-    name: nginx-plus-apb
+    name: nginx-plus-apb-web
     namespace: '{{ namespace }}'
     spec_port_target_port: web
     labels:
       app: '{{ namespace }}'
-      service: nginx-plus-apb
+      service: nginx-plus-apb-web
     to_name: nginx-plus-apb
+
+- name: Create NGINX Plus APB status route
+  openshift_v1_route:
+    name: nginx-plus-apb-status
+    namespace: '{{ namespace }}'
+    spec_port_target_port: status
+    labels:
+      app: '{{ namespace }}'
+      service: nginx-plus-apb-status
+    to_name: nginx-plus-apb
+
+
+##############################################################################
+## Creates an NGINX default.conf file based on a Jinja2 template and the
+## values provided by a user when launching the APB.
+## http://docs.ansible.com/ansible/latest/template_module.html
+##############################################################################
+- name: Create NGINX config from template
+  template:
+    src: default.conf.j2
+    dest: /tmp/default.conf
+
+##############################################################################
+## Creates a configMap mapping the default.conf created by the Jinja2 template.
+## https://docs.openshift.com/enterprise/3.2/dev_guide/configmaps.html#configmaps-use-case-consuming-in-volumes
+##############################################################################
+- name: Create NGINX configMap
+  shell: oc create configmap nginx-conf --from-file=nginx-conf=/tmp/default.conf

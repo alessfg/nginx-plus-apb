@@ -1,0 +1,58 @@
+{% if lb %}
+upstream upstr {
+{% if status %}
+    zone upstr 64k;
+{% endif %}
+{% if lb_method != 'round_robin' %}
+    {{ lb_method }};
+{% endif %}
+{% set list = server.split(', ') %}
+{% for ip in list %}
+    server {{ ip }};
+{% endfor %}
+{% if session_persistence %}
+    sticky cookie {{ sticky_cookie }};
+{% endif %}
+}
+{% endif %}
+
+server {
+    listen 8080;
+    server_name localhost;
+
+{% if status %}
+    status_zone landing_page;
+{% endif %}
+
+    location / {
+{% if lb %}
+        proxy_pass http://upstr;
+{% else %}
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+{% endif %}
+    }
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+}
+
+{% if status %}
+server {
+    listen 8081;
+    root /usr/share/nginx/html;
+
+    status_zone status_page;
+
+    location /status {
+        status;
+    }
+
+    location = /status.html {
+    }
+}
+{% endif %}

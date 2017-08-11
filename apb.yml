@@ -2,7 +2,7 @@ id: c5dff023-86e0-425c-84de-993be425c757
 name: nginx-plus-apb
 image: nginxinc/nginx-plus-apb
 description: An open source reverse proxy web server
-bindable: False
+bindable: false
 async: optional
 metadata:
   documentationUrl: https://www.nginx.com/resources/admin-guide/
@@ -22,4 +22,28 @@ plans:
         default: openshift-nginx-plus
         type: string
         title: Name of NGINX Plus Docker image
-        required: True
+        required: true
+      - name: lb
+        default: false
+        type: boolean
+        title: Proxy Servers
+        required: true
+      - name: server
+        type: string
+        title: Proxy Servers (Input as a Comma Separated List)
+      - name: lb_method
+        type: enum
+        enum: ['round_robin', 'least_conn', 'ip_hash']
+        default: 'round_robin'
+        title: Load Balancing Algorithm
+      - name: session_persistence
+        default: false
+        type: boolean
+        title: Session Persistence
+      - name: sticky_cookie
+        type: string
+        title: Name of Sticky Cookie
+      - name: status
+        default: false
+        type: boolean
+        title: Status Dashboard
