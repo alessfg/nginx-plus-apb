@@ -92,7 +92,6 @@
       service: nginx-plus-apb-status
     to_name: nginx-plus-apb
 
-
 ##############################################################################
 ## Creates an NGINX default.conf file based on a Jinja2 template and the
 ## values provided by a user when launching the APB.
