@@ -27,23 +27,24 @@ plans:
         default: false
         type: boolean
         title: Proxy Servers
-        required: true
       - name: server
+        default:
         type: string
         title: Proxy Servers (Input as a Comma Separated List)
       - name: lb_method
+        default: 'round_robin'
         type: enum
         enum: ['round_robin', 'least_conn', 'ip_hash']
-        default: 'round_robin'
         title: Load Balancing Algorithm
       - name: session_persistence
         default: false
         type: boolean
-        title: Session Persistence
+        title: Enable Session Persistence
       - name: sticky_cookie
+        default:
         type: string
         title: Name of Sticky Cookie
       - name: status
         default: false
         type: boolean
-        title: Status Dashboard
+        title: Enable Status Dashboard
