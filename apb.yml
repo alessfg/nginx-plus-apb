@@ -12,7 +12,7 @@ metadata:
 plans:
   - name: default
     description: A simple web server
-    free: True
+    free: true
     metadata:
       displayName: Default
       longDescription: This plan deploys a simple NGINX Plus web server
