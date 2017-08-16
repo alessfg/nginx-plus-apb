@@ -48,8 +48,18 @@ lb | false | No | Enable Proxy Servers
 server |  | No | Proxy Servers (Input as a Comma Separated List)
 lb_method | round_robin | No | Load Balancing Algorithm
 session_persistence | false | No | Enable Session Persistence
-sticky_cookie |   | No | Name of Sticky Cookie
+sticky_method |   | No | Session Persistence Method
+sticky_learn_cookie |   | No | Name of Sticky (Normal or Learn) Cookie
+sticky_route_cookie |   | No | Name of Sticky Route Cookie
+sticky_route_cookie_regex |   | No | Regex for Sticky Route Cookie
+sticky_route_cookie_regex_capture |   | No | Regex to Capture for Sticky Route Cookie
+sticky_route_uri |   | No | NGINX Variable to use for Sticky Route URI
+sticky_route_uri_regex |   | No | Regex for Sticky Route URI
+sticky_route_uri_regex_capture |   | No | Regex to Capture for Sticky Route URI
+routes |   | No | Proxy Servers Sticky Routes (Input as a Comma Separated List)
 status | false | No | Enable Status Dashboard
+healthcheck | false | No | Enable Active Healthchecks
+cache | false | No | Enable Proxy Cache
 
 ## License
 

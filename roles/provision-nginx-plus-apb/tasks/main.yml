@@ -28,15 +28,15 @@
       app: '{{ namespace }}'
       service: nginx-plus-apb
     containers:
-    - image: '{{ nginx_plus_image }}' # replace with your application image
-      imagePullPolicy: IfNotPresent
-      name: nginx-plus-apb
-      ports:
-      - container_port: 80
-        protocol: TCP
-      volumeMounts:
-        - mountPath: /etc/nginx/conf.d
-          name: configuration
+      - image: '{{ nginx_plus_image }}'
+        imagePullPolicy: IfNotPresent
+        name: nginx-plus-apb
+        ports:
+          - container_port: 80
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /etc/nginx/conf.d
+            name: configuration
     restart_policy: Always
     volumes:
       - name: configuration
