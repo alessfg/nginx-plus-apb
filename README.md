@@ -15,7 +15,7 @@ Finally, you will need to build an OpenShift NGINX Plus image. A Dockerfile to b
 ## How to Install the NGINX Plus Service
 
 1. Login to your `oc` cluster via the command that [catasb](https://github.com/fusor/catasb) will output at the end of the installation process.
-2. Clone this repository.
+2. Clone the NGINX Plus APB repository (this repository).
 3. Navigate to the repository and run `apb build`.
 4. Run `apb push`.
 5. Open your browser at https://192.168.37.1:8443. You'll be greeted by the OpenShift service catalog.
