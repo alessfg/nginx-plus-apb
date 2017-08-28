@@ -32,7 +32,7 @@
         imagePullPolicy: IfNotPresent
         name: nginx-plus-apb
         ports:
-          - container_port: 80
+          - container_port: 8080
             protocol: TCP
         volumeMounts:
           - mountPath: /etc/nginx/conf.d
