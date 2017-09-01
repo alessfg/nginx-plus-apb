@@ -14,16 +14,16 @@ As part of setting up `catasb` you will need to set some additional parameters o
 
 You will also need to install the [APB application](https://github.com/fusor/ansible-playbook-bundle).
 
-Finally, you will need to build an OpenShift NGINX Plus image. A Dockerfile to build the image can be found in the `dev` folder. You will need to copy your certs into the `certs` folder for the Docker image to work.
-
 ## How to Install and Test the NGINX Plus Service
 
-1. Login to your `oc` cluster via the command that [catasb](https://github.com/fusor/catasb) will output at the end of the installation process.
+1. You need to build an OpenShift NGINX Plus image. A Dockerfile to build the image can be found in the `dev` folder. You will need to copy your certs into the `certs` folder for the Docker image to work.
+2. Login to your `oc` cluster via the command that [catasb](https://github.com/fusor/catasb) will output at the end of the installation process.
 2. Clone the NGINX Plus APB repository (this repository).
 3. Navigate to the repository and run `apb build`.
 4. Run `apb push`.
 5. Open your browser at https://192.168.37.1:8443. You'll be greeted by the OpenShift service catalog.
 6. Select the NGINX service, add it to `My Project`, select `Create` and click `View Project`.
+    * Do not enable load balancing at this stage or your deployment will fail.
 7. After waiting for a few seconds you should see a URL pop in the top-right corner of the project overview GUI. That URL will take you to the default NGINX landing page.
 
 ## Sample Tutorial Walkthrough
@@ -39,7 +39,7 @@ Name | Default Value | Required | Description
 ---|---|---|---
 nginx_plus_image | openshift-nginx-plus | Yes | Name of NGINX Plus Docker image
 lb | false | No | Enable Load Balancing
-server | - | No | Load Balanced Servers (Input as a Comma Separated List and Add Port 8080)
+server | - | No | Load Balanced Servers (Input as a Comma Separated List)
 lb_method | round_robin | No | Load Balancing Algorithm
 session_persistence | false | No | Enable Session Persistence
 sticky_method | - | No | Session Persistence Method
