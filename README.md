@@ -4,11 +4,11 @@ An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Plus.
 
 **Please Note**: This is still a WIP. Any upstream changes might break the APB without previous warning.
 
-## Setup
+## Development Environment Setup
 
-To test this APB you will first need to setup an OpenShift Origin environment with a Service Catalog and Ansible Service Broker. [Catasb](https://github.com/fusor/catasb) is a nice tool that will allow you to easily create an OpenShift Docker cluster on your local machine and install all the required dependencies.
+To test this APB you will first need to setup an OpenShift Origin environment with a Service Catalog and Ansible Service Broker. [`catasb`](https://github.com/fusor/catasb) is a nice tool that will allow you to easily create an OpenShift Docker cluster on your local machine and install all the required dependencies.
 
-As part of setting up `catasb` you will need to set some additional parameters on `config/my_vars.yml` to allow the NGINX Plus APB to function properly:
+As part of setting up [`catasb`](https://github.com/fusor/catasb) you will need to set some additional parameters on `config/my_vars.yml` to allow the NGINX Plus APB to function properly:
 * broker_enable_basic_auth: false
 * broker_bootstrap_refresh_interval: 86400s
 
@@ -16,15 +16,15 @@ You will also need to install the [APB application](https://github.com/fusor/ans
 
 ## How to Install and Test the NGINX Plus Service
 
-1. You need to build an OpenShift NGINX Plus image. A Dockerfile to build the image can be found in the `dev` folder. You will need to copy your certs into the `certs` folder for the Docker image to work.
+1. You need to build an OpenShift NGINX Plus Docker image. A Dockerfile to build the image can be found in [`dev`](https://github.com/nginxinc/nginx-plus-apb/blob/master/dev/Dockerfile). You will need to copy your certs into the `certs` folder for the Docker image to work.
 2. Login to your `oc` cluster via the command that [catasb](https://github.com/fusor/catasb) will output at the end of the installation process.
-2. Clone the NGINX Plus APB repository (this repository).
-3. Navigate to the repository and run `apb build`.
-4. Run `apb push`.
-5. Open your browser at https://192.168.37.1:8443. You'll be greeted by the OpenShift service catalog.
-6. Select the NGINX service, add it to `My Project`, select `Create` and click `View Project`.
+3. Clone the NGINX Plus APB repository (this repository).
+4. Navigate to the repository and run `apb build`.
+5. Run `apb push`.
+6. Open your browser at https://192.168.37.1:8443. You'll be greeted by the OpenShift service catalog.
+7. Select the NGINX service, add it to `My Project`, select `Create` and click `View Project`.
     * Do not enable load balancing at this stage or your deployment will fail.
-7. After waiting for a few seconds you should see a URL pop in the top-right corner of the project overview GUI. That URL will take you to the default NGINX landing page.
+8. After waiting for a few seconds you should see a URL pop in the top-right corner of the project overview GUI. That URL will take you to the default NGINX landing page.
 
 ## Sample Tutorial Walkthrough
 
