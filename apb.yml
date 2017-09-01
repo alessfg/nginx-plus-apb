@@ -24,9 +24,8 @@ plans:
         type: boolean
         title: Enable Load Balancing
       - name: server
-        default:
         type: string
-        title: Load Balanced Servers (Input as a Comma Separated List and Add Port 8080)
+        title: Load Balanced Servers (Input as a Comma Separated List)
       - name: lb_method
         default: 'round_robin'
         type: enum
@@ -37,40 +36,31 @@ plans:
         type: boolean
         title: Enable Session Persistence
       - name: sticky_method
-        default:
         type: enum
         enum: ['sticky_cookie', 'sticky_route', 'sticky_learn']
         title: Session Persistence Method
       - name: sticky_learn_cookie
-        default:
         type: string
         title: Name of Sticky (Normal or Learn) Cookie
       - name: sticky_route_cookie
-        default:
         type: string
         title: Name of Sticky Route Cookie
       - name: sticky_route_cookie_regex
-        default:
         type: string
         title: Regex for Sticky Route Cookie
       - name: sticky_route_cookie_regex_capture
-        default:
         type: string
         title: Regex to Capture for Sticky Route Cookie
       - name: sticky_route_uri
-        default:
         type: string
         title: NGINX Variable to use for Sticky Route URI
       - name: sticky_route_uri_regex
-        default:
         type: string
         title: Regex for Sticky Route URI
       - name: sticky_route_uri_regex_capture
-        default:
         type: string
         title: Regex to Capture for Sticky Route URI
       - name: routes
-        default:
         type: string
         title: Proxy Servers Sticky Routes (Input as a Comma Separated List)
       - name: status
