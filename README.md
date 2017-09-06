@@ -1,6 +1,6 @@
 # Ansible Playbook Bundle for NGINX Plus
 
-An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Plus.
+An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Plus in the OpenShift Service Catalog.
 
 **Please Note**: This is still a WIP. Any upstream changes might break the APB without previous warning.
 
