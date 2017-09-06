@@ -1,37 +1,17 @@
 {% if lb %}
-{{ 'proxy_cache_path /tmp/cache keys_zone=mycache:10m inactive=60m' if cache }};
-
-{% if session_persistence and sticky_method == 'sticky_route' %}
-map $cookie_{{ sticky_route_cookie }} $route_cookie {
-    ~{{ sticky_route_cookie_regex }}$ ${{ sticky_route_cookie_regex_capture }};
-}
-
-map $request_uri $route_uri {
-    ~{{ sticky_route_uri_regex }}$ ${{ sticky_route_uri_regex_capture }};
-}
-{% endif %}
-
 upstream upstr {
-    {{ 'zone upstr 64k' if status }};
+{% if status %}
+    zone upstr 64k;
+{% endif %}
 {% if lb_method != 'round_robin' %}
-    {{ lb_method }}{{ ' $request_uri' if lb_method == 'hash' }};
+    {{ lb_method }};
 {% endif %}
 {% set list = server.split(', ') %}
-{% if session_persistence and sticky_method == 'sticky_route' %}
-{% set route = routes.split(', ') %}
-{% set count = 0 %}
-{% endif %}
 {% for ip in list %}
-    server {{ ip }} {% if session_persistence and sticky_method == 'sticky_route' %}route={{ route[count] }}{% set count = count + 1 %}{% endif %};
+    server {{ ip }};
 {% endfor %}
 {% if session_persistence %}
-{% if sticky_method == 'sticky_cookie' %}
-    sticky cookie {{ sticky_learn_cookie }};
-{% elif sticky_method == 'sticky_route' %}
-    sticky route $route_cookie $route_uri;
-{% elif sticky_method == 'sticky_learn' %}
-    sticky learn create=$upstream_cookie_{{ sticky_learn_cookie }} lookup=$cookie_{{ sticky_learn_cookie }} zone=client_sessions:1m;
-{% endif %}
+    sticky cookie {{ sticky_cookie }};
 {% endif %}
 }
 {% endif %}
@@ -40,13 +20,13 @@ server {
     listen 8080;
     server_name localhost;
 
-    {{ 'status_zone landing_page' if status }};
+{% if status %}
+    status_zone landing_page;
+{% endif %}
 
     location / {
 {% if lb %}
         proxy_pass http://upstr;
-        {{ 'health_check' if healthcheck }};
-        {{ 'proxy_cache mycache' if cache }};
 {% else %}
         root /usr/share/nginx/html;
         index index.html index.htm;
