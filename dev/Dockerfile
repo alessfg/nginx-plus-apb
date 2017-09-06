@@ -1,6 +1,6 @@
 FROM docker.io/centos:7
 
-ENV NGINX_VERSION="1.11.10 (nginx-plus-r12-p3)"
+ENV NGINX_VERSION="1.13.4 (nginx-plus-r13)"
 
 # Download certificate and key from the customer portal (https://cs.nginx.com)
 # and copy to the build context
