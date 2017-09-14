@@ -34,6 +34,8 @@
         ports:
           - container_port: 8080
             protocol: TCP
+          - container_port: 8081
+            protocol: TCP
         volumeMounts:
           - mountPath: /etc/nginx/conf.d
             name: configuration
